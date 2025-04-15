@@ -1,0 +1,257 @@
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px; /* Limit container width */
+    width: 100%; /* Make container responsive */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Estilizando o botão de upload personalizado */
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+/* Escondendo o input de arquivo padrão */
+input[type="file"] {
+    display: none;
+}
+
+.canvas-container {
+    margin: 20px auto; /* Centraliza e adiciona espaço */
+    max-width: 100%; /* Garante que não ultrapasse o container */
+    border: 1px dashed #ccc; /* Borda suave para visualização */
+    min-height: 100px; /* Altura mínima para quando estiver vazio */
+    position: relative; /* Para mensagens e posicionamento */
+    overflow: hidden; /* Importante para esconder partes da imagem fora do canvas */
+    touch-action: none; /* Desabilita scroll padrão da página ao tocar no canvas */
+}
+
+/* O canvas terá seu tamanho definido pelo JS, mas controlamos o max */
+#imageCanvas {
+    display: block; /* Remove espaço extra abaixo */
+    max-width: 100%; /* Faz o canvas ser responsivo */
+    height: auto;   /* Mantém a proporção */
+    margin: 0 auto; /* Centraliza se for menor que o container */
+    cursor: grab; /* Cursor inicial para indicar que é móvel */
+}
+#imageCanvas:active {
+    cursor: grabbing; /* Cursor enquanto arrasta */
+}
+
+
+#loadingMessage, #instructionMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    color: #333;
+    pointer-events: none; /* Mensagens não devem interceptar cliques */
+    z-index: 10; /* Garante que fique sobre o canvas se necessário */
+}
+#instructionMessage {
+     top: 15px; /* Posiciona a instrução no topo */
+     transform: translate(-50%, 0);
+}
+
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 5px; /* Espaçamento entre botões */
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+    background-color: #218838;
+}
+
+#shareBtn {
+    background-color: #17a2b8; /* Cor diferente para o botão de compartilhar */
+}
+#shareBtn:hover {
+    background-color: #117a8b;
+}
+
+/* Media query para telas menores */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .custom-file-upload {
+         padding: 8px 15px;
+    }
+}
+/* Estilos para a área da imagem de exemplo */
+.example-image-container {
+    margin-top: 30px; /* Espaço acima do exemplo */
+    margin-bottom: 20px; /* Espaço abaixo do exemplo */
+    padding-top: 20px; /* Espaço interno acima */
+    border-top: 1px solid #eee; /* Linha separadora sutil */
+    text-align: center; /* Centraliza o texto e a imagem (se for inline-block ou sem margin auto) */
+}
+
+.example-text {
+    font-size: 0.95em; /* Tamanho do texto de descrição */
+    color: #666;      /* Cor do texto */
+    margin-bottom: 15px; /* Espaço abaixo do texto */
+}
+
+#exampleImage {
+    display: block; /* Para poder usar margin: auto */
+    max-width: 50%;   /* Limita a largura da imagem de exemplo (ajuste conforme necessário) */
+    height: auto;     /* Mantém a proporção da imagem */
+    margin-left: auto; /* Centraliza a imagem horizontalmente */
+    margin-right: auto;/* Centraliza a imagem horizontalmente */
+    border: 1px solid #ccc; /* Borda sutil ao redor */
+    border-radius: 4px; /* Cantos levemente arredondados */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra leve */
+}
+
+/* Ajuste na margem superior do container do canvas, se necessário */
+.canvas-container {
+     margin-top: 30px; /* Aumenta ou ajusta o espaço acima do canvas */
+}
+/* Estilos para a área de seleção de template */
+.template-selection-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.template-selection-container h2 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.template-options {
+    display: flex; /* Organiza as opções lado a lado */
+    flex-wrap: wrap; /* Permite quebrar linha se não couber */
+    justify-content: center; /* Centraliza as opções */
+    gap: 15px; /* Espaçamento entre as opções */
+    margin-bottom: 10px;
+}
+
+.template-option {
+    display: flex;
+    flex-direction: column; /* Imagem acima do texto */
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid transparent; /* Borda inicial transparente */
+    border-radius: 8px;
+    transition: border-color 0.2s ease-in-out, transform 0.2s ease;
+    position: relative; /* Para o posicionamento do input */
+}
+
+.template-option img {
+    width: 80px; /* Tamanho da miniatura */
+    height: 80px; /* Tamanho da miniatura */
+    object-fit: cover; /* Cobre a área sem distorcer */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.template-option span {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Esconde o botão de rádio real */
+.template-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Estilo quando o radio está selecionado (focado na label) */
+.template-option input[type="radio"]:checked + img + span {
+    font-weight: bold;
+    color: #007bff;
+}
+.template-option input[type="radio"]:checked + img {
+     border-color: #007bff; /* Destaca a borda da imagem selecionada */
+     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Efeito hover */
+.template-option:hover {
+   transform: translateY(-2px);
+   border-color: #eee; /* Mostra uma borda leve no hover */
+}
+.template-option input[type="radio"]:checked:hover + img {
+     /* Mantem o estilo de selecionado no hover */
+      border-color: #0056b3;
+     box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
+}
+
+
+/* Ajuste na margem superior do container do canvas */
+.canvas-container {
+     margin-top: 30px;
+}
+
+#templateLoadingMessage {
+    font-style: italic;
+    margin-top: 10px;
+}
