@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criador de Imagem com Templates</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Crie sua Imagem Personalizada</h1>
+        <p>Escolha um template, envie sua foto, ajuste e baixe!</p>
+
+        <label for="imageLoader" class="custom-file-upload">
+            Escolher Foto
+        </label>
+        <input type="file" id="imageLoader" accept="image/*"/>
+
+        <div class="template-selection-container">
+            <h2>Escolha um Template:</h2>
+            <div class="template-options">
+                <label class="template-option">
+                    <input type="radio" name="template_choice" value="template1.png" data-thumb="thumb1.png" checked>
+                    <img src="thumb1.png" alt="Template 1">
+                    <span>Modelo 1</span>
+                </label>
+                <label class="template-option">
+                    <input type="radio" name="template_choice" value="template2.png" data-thumb="thumb2.png">
+                    <img src="thumb2.png" alt="Template 2">
+                    <span>Modelo 2</span>
+                </label>
+                <label class="template-option">
+                    <input type="radio" name="template_choice" value="template3.png" data-thumb="thumb3.png">
+                    <img src="thumb3.png" alt="Template 3">
+                    <span>Modelo 3</span>
+                </label>
+                <label class="template-option">
+                    <input type="radio" name="template_choice" value="template4.png" data-thumb="thumb4.png">
+                    <img src="thumb4.png" alt="Template 4">
+                    <span>Modelo 4</span>
+                </label>
+                <label class="template-option">
+                    <input type="radio" name="template_choice" value="template5.png" data-thumb="thumb5.png">
+                    <img src="thumb5.png" alt="Template 5">
+                    <span>Modelo 5</span>
+                </label>
+                </div>
+             <p id="templateLoadingMessage" style="display: none; color: #007bff;">Carregando novo template...</p>
+        </div>
+        <div id="editorArea" class="canvas-container">
+             <canvas id="imageCanvas"></canvas>
+             <p id="loadingMessage" style="display: none;">Carregando e processando imagem...</p>
+             <p id="instructionMessage" style="display: none;">Clique/arraste para mover. Use scroll/pinch para zoom.</p>
+        </div>
+
+
+        <button id="downloadBtn" disabled>Baixar Imagem</button>
+
+        <button id="shareBtn" style="display: none;">Compartilhar</button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
